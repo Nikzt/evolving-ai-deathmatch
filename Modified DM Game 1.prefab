@@ -1,0 +1,161 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1146259487947902}
+  m_IsPrefabParent: 1
+--- !u!1 &1146259487947902
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4509934294554554}
+  - component: {fileID: 114585399501002746}
+  - component: {fileID: 114675486560241010}
+  - component: {fileID: 114144902621237614}
+  m_Layer: 0
+  m_Name: Modified DM Game 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4509934294554554
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1146259487947902}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114144902621237614
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1146259487947902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e62ff47c006d0348a9a8b903d22679e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StartGame: {fileID: 8300000, guid: 33112db00c998dc408a07e196f84fa58, type: 3}
+  m_GameOverWinner: {fileID: 8300000, guid: b8c8a3c737b8972488b4e816a0216114, type: 3}
+  m_GameOverLoser: {fileID: 8300000, guid: 7978b2e4ec3c42743a044add5eef9918, type: 3}
+  m_GameOverDelay: 0.5
+--- !u!114 &114585399501002746
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1146259487947902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b48c56f2517eb749a6e1f3bacc0dbf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ForceInitialization: 0
+  m_PlayerCount: 8
+  m_PlayersPerTeam: 4
+  m_TeamCount: 4
+  m_TeamGame: 0
+  m_ObserverMode: 1
+  m_Difficulty: 1
+  m_PlayerPrefab: {fileID: 112816, guid: 5e45fda65b9ec1f418199f274dfff845, type: 2}
+  m_AgentPrefab: {fileID: 103028, guid: d8287d5563673db49b0c8302cea4de78, type: 2}
+  m_CameraPrefab: {fileID: 148270, guid: a0e500ee5b2f234498eedb6844a369df, type: 2}
+  m_ObserverPrefab: {fileID: 172762, guid: dd6816f99005db8418f24bc84662508b, type: 2}
+  m_AgentNames:
+  - Eryx
+  - Talon
+  - Adonis
+  - Yari
+  - Rafe
+  - Rex
+  - Ace
+  - Nova
+  - Juno
+  - Darius
+  - Triton
+  - Halon
+  - Xane
+  - Nyx
+  - Ion
+  - Lime
+  m_TeamNames:
+  - Red Team
+  - Blue Team
+  - Green Team
+  - Yellow Team
+  m_ParentName: Players
+  m_PrimaryFFAColors:
+  - {r: 0.9764706, g: 0.2509804, b: 0.23921569, a: 1}
+  - {r: 0.21960784, g: 0.28627452, b: 0.9764706, a: 1}
+  - {r: 0.22745098, g: 0.7254902, b: 0.23529412, a: 1}
+  - {r: 0.9764706, g: 0.8235294, b: 0.21568628, a: 1}
+  - {r: 0.9764706, g: 0.41568628, b: 0.19607843, a: 1}
+  - {r: 0.31764707, g: 0.9764706, b: 0.9137255, a: 1}
+  - {r: 0.9764706, g: 0.39607844, b: 0.5411765, a: 1}
+  - {r: 0.70980394, g: 0.3372549, b: 0.9764706, a: 1}
+  m_SecondaryFFAColors:
+  - {r: 0.7254902, g: 0.1882353, b: 0.18039216, a: 1}
+  - {r: 0.16470589, g: 0.21176471, b: 0.7254902, a: 1}
+  - {r: 0.13333334, g: 0.42745098, b: 0.13725491, a: 1}
+  - {r: 0.7254902, g: 0.6117647, b: 0.16078432, a: 1}
+  - {r: 0.7254902, g: 0.30980393, b: 0.14509805, a: 1}
+  - {r: 0.23529412, g: 0.7254902, b: 0.6784314, a: 1}
+  - {r: 0.7254902, g: 0.29411766, b: 0.40392157, a: 1}
+  - {r: 0.5294118, g: 0.2509804, b: 0.7254902, a: 1}
+  m_PrimaryTeamColors:
+  - {r: 0.9764706, g: 0.2509804, b: 0.23921569, a: 1}
+  - {r: 0.21960784, g: 0.28627452, b: 0.9764706, a: 1}
+  - {r: 0.39607844, g: 0.9764706, b: 0.38431373, a: 1}
+  - {r: 0.9764706, g: 0.8235294, b: 0.21568628, a: 1}
+  m_SecondaryTeamColors:
+  - {r: 0.7254902, g: 0.1882353, b: 0.18039216, a: 1}
+  - {r: 0.16470589, g: 0.21176471, b: 0.7254902, a: 1}
+  - {r: 0.29411766, g: 0.7254902, b: 0.28627452, a: 1}
+  - {r: 0.7254902, g: 0.6117647, b: 0.16078432, a: 1}
+  m_PrimaryColorMaterials:
+  - {fileID: 2100000, guid: 2df495cdad422f64b954261caa135a6b, type: 2}
+  - {fileID: 2100000, guid: 481f3524222a9bf4a853c5de317b456c, type: 2}
+  - {fileID: 2100000, guid: c889fe770ff029b409922925353352a0, type: 2}
+  m_SecondaryColorMaterials:
+  - {fileID: 2100000, guid: d29c695d01a0375449d08df918af4859, type: 2}
+  - {fileID: 2100000, guid: 32a5e3fabee2acb4f99035beb6585e2a, type: 2}
+  - {fileID: 2100000, guid: 619d45a2d2b43a446a12e06ff0dadb80, type: 2}
+  m_Layers:
+  - RedTeam
+  - BlueTeam
+  - GreenTeam
+  - YellowTeam
+  m_SoloTree: {fileID: 11400000, guid: 66dcc56903e4e42ffbe2ce06e4657d87, type: 2}
+  m_TeamTree: {fileID: 11400000, guid: 2a9d0444bc843d44cbe48dcc4ac41bf5, type: 2}
+  timeLimit: 300
+--- !u!114 &114675486560241010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1146259487947902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8139e4c8806ccba479ec98a54f82ab2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FFAKillsToWin: 15
+  m_TeamKillsToWin: 25
