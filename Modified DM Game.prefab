@@ -42,7 +42,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8139e4c8806ccba479ec98a54f82ab2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FFAKillsToWin: 15
+  m_FFAKillsToWin: 50
   m_TeamKillsToWin: 25
 --- !u!114 &11468374
 MonoBehaviour:

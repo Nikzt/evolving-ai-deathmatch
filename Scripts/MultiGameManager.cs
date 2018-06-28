@@ -13,13 +13,18 @@ public class MultiGameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Screen.SetResolution(80, 80, false);
+		Application.targetFrameRate = 15;
+
 		evolver = GameObject.Find("Evolution Controller").GetComponent<EvolutionController>();
 		evoManager = new EvolutionInfoManager();
 		evoManager.ReadInfo();
 		if (evoManager.Initial()) {
+			// The first game of the first iteration
 			evoManager.Population = evolver.InitializeRandomPopulation(evoManager.N);
 			evoManager.InitializePopulationQueue();
-			// Select 8 phenotypes and start a game with them
+			evoManager.WritePopulation("population.csv");
+
 		} else if (evoManager.SelectBest()) {
 			evoManager.ReadPopulation("population.csv");
 			List<PhenoType> best = Selection();
@@ -71,6 +76,8 @@ public class MultiGameManager : MonoBehaviour {
 			evoManager.PopulationQueue.RemoveAt(ind);
 		}
 		evolver.SetPlayers(players);
+		evoManager.WritePopulationQueue();
+		evoManager.EndGame();
 	}
 
 	List<PhenoType> GenerateOffspring () {
@@ -122,19 +129,18 @@ public class MultiGameManager : MonoBehaviour {
 
 	}
 
-	private IEnumerator DelayedRestart() {
+	private void DelayedRestart() {
 		evolver.GetScores();
-		yield return new WaitForSeconds(0.5f);
+		evoManager.ReadPopulation("population.csv");
 		UpdateFitness();
-		yield return new WaitForSeconds(0.5f);
 		evoManager.WritePopulation("population.csv");
-		yield return new WaitForSeconds(0.5f);
-		evoManager.WritePopulationQueue();
-		yield return new WaitForSeconds(0.5f);
-		evoManager.EndGame();
-		yield return new WaitForSeconds(0.5f);
-        Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(currentScene.name);
+//        Scene currentScene = SceneManager.GetActiveScene();
+//        SceneManager.LoadScene(currentScene.name);
+		#if UNITY_EDITOR
+        	UnityEditor.EditorApplication.isPlaying = false;
+        #else
+        	Application.Quit();
+        #endif
 	}
 	
 }
