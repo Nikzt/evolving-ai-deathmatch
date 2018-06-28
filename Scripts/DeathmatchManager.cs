@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 #if !(UNITY_5_1 || UNITY_5_2)
 using UnityEngine.SceneManagement;
 #endif
@@ -84,6 +85,8 @@ namespace Opsive.DeathmatchAIKit
         [SerializeField] protected ExternalBehavior m_SoloTree;
         [Tooltip("The behavior tree to use when in a team game")]
         [SerializeField] protected ExternalBehavior m_TeamTree;
+        public float timeLimit = 300f;
+        private float timer;
         // Internal variables
 #if UNITY_EDITOR
         private static bool m_Initialized;
@@ -192,6 +195,13 @@ namespace Opsive.DeathmatchAIKit
             if (Input.GetKeyDown(KeyCode.Escape)) {
                 Paused = true;
             }
+            timer -= Time.deltaTime;
+            timerDisplay.text = ((int) timer).ToString();
+            if (timer <= 0f) {
+                Scoreboard.EndGame();
+                timer = timeLimit;
+
+            }
         }
 
 #if !(UNITY_5_1 || UNITY_5_2 || UNITY_5_3)
@@ -214,18 +224,21 @@ namespace Opsive.DeathmatchAIKit
             SceneLoaded(level);
         }
 #endif
-
+        private Text timerDisplay;
         /// <summary>
         /// A new scene was loaded. Spawn the players if the level isn't the main menu.
         /// </summary>
         /// <param name="sceneIndex">The index of the loaded scene.</param>
         public void SceneLoaded(int sceneIndex)
         {
+            Application.targetFrameRate = 30;
             // No action for the main menu scene.
             if (sceneIndex == 0) {
                 enabled = false;
                 return;
             }
+            timerDisplay = GameObject.Find("Time Limit Text Box").GetComponent<Text>();
+            timer = timeLimit;
 
             // Find the parent object of all of the players.
             var parentGameObject = GameObject.Find(m_ParentName);
@@ -413,13 +426,13 @@ namespace Opsive.DeathmatchAIKit
                             health.SetHealthAmount(health.MaxHealth);
                             shootableWeapons = deathmatchAgent.GetComponentsInChildren<DeathmatchShootableWeapon>();
                             for (int i = 0; i < shootableWeapons.Length; ++i) {
-                                shootableWeapons[i].Spread = 0.02f;
+                                shootableWeapons[i].Spread = 0.005f;
                             }
                             break;
                         case AIDifficulty.Medium:
                             shootableWeapons = deathmatchAgent.GetComponentsInChildren<DeathmatchShootableWeapon>();
                             for (int i = 0; i < shootableWeapons.Length; ++i) {
-                                shootableWeapons[i].Spread = 0.1f;
+                                shootableWeapons[i].Spread = 0.005f;
                             }
                             break;
                     }

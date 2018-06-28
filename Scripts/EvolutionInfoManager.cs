@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class EvolutionInfoManager {
 	protected int m_CurrentGameNumber;
@@ -17,6 +18,7 @@ public class EvolutionInfoManager {
 
     public List<PhenoType> Population { get { return m_Population; } set { m_Population = value; } }
     public List<PhenoType> PopulationQueue { get { return m_PopulationQueue; } set { m_PopulationQueue = value; } }
+    public List<PhenoType> ChildPopulation { get { return m_ChildPopulation; } set { m_ChildPopulation = value; } }
 	public int N { get { return m_N; } set {m_N = value;}}
 
 	public EvolutionInfoManager() {
@@ -25,14 +27,11 @@ public class EvolutionInfoManager {
 
 	public void EndGame() {
 		m_CurrentGameNumber += 1;
-		WriteInfo();
-		if (m_CurrentGameNumber >= 8) {
-		    #if UNITY_EDITOR
-         	UnityEditor.EditorApplication.isPlaying = false;
-			#else 
-			Application.Quit()
-			#endif
+		if (m_CurrentGameNumber > 8) {
+			m_CurrentIteration += 1;
+			m_CurrentGameNumber = 1;
 		}
+		WriteInfo();
 	}
 
 	public void ReadInfo() {
@@ -56,8 +55,8 @@ public class EvolutionInfoManager {
 		System.IO.File.WriteAllLines("evolution.csv", info);
 	}
 
-	public void ReadPopulation() {
-		string[] pop = System.IO.File.ReadAllLines("population.csv");
+	public void ReadPopulation(string filename) {
+		string[] pop = System.IO.File.ReadAllLines(filename);
 		m_Population = new List<PhenoType>();
 		foreach (String pheno in pop) {
 			m_Population.Add(StringToPhenoType(pheno));
@@ -73,7 +72,7 @@ public class EvolutionInfoManager {
 		}
 	}
 
-	public void WritePopulation() {
+	public void WritePopulation(string filename) {
 		string[] pop = new string[m_N];
 		for (int k = 0; k < m_N; k++) {
 			string phenobuf = "";
@@ -89,7 +88,7 @@ public class EvolutionInfoManager {
 			pop[k] = phenobuf;
 		}
 		using (System.IO.StreamWriter file = 
-            new System.IO.StreamWriter("population.csv"))
+            new System.IO.StreamWriter(filename))
         {
             foreach (string line in pop)
             {
@@ -155,6 +154,14 @@ public class EvolutionInfoManager {
 
 	public bool Initial() {
 		return (m_CurrentGameNumber == 1 && m_CurrentIteration == 1);
+	}
+
+	public bool EvaluateOffspring() {
+		return (m_CurrentGameNumber == 1 && m_CurrentIteration != 1);
+	}
+
+	public bool SelectBest() {
+		return (m_CurrentGameNumber == 1 && File.Exists("prev-population.csv"));
 	}
 
 	public void UpdateFitness(PhenoType player) {

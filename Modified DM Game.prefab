@@ -42,7 +42,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8139e4c8806ccba479ec98a54f82ab2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FFAKillsToWin: 1
+  m_FFAKillsToWin: 15
   m_TeamKillsToWin: 25
 --- !u!114 &11468374
 MonoBehaviour:
@@ -147,6 +147,7 @@ MonoBehaviour:
   - YellowTeam
   m_SoloTree: {fileID: 11400000, guid: 66dcc56903e4e42ffbe2ce06e4657d87, type: 2}
   m_TeamTree: {fileID: 11400000, guid: 2a9d0444bc843d44cbe48dcc4ac41bf5, type: 2}
+  timeLimit: 300
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

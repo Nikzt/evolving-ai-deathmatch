@@ -198,7 +198,7 @@ public class EvolutionController : MonoBehaviour {
 
 	}
 
-    private PhenoType[] HUXCrossover(PhenoType p1, PhenoType p2) {
+    public PhenoType[] HUXCrossover(PhenoType p1, PhenoType p2) {
 		PhenoType[] children = new PhenoType[2];
 		children[0] = new PhenoType();
 		children[1] = new PhenoType();

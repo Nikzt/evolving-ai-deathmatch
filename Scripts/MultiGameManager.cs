@@ -20,11 +20,47 @@ public class MultiGameManager : MonoBehaviour {
 			evoManager.Population = evolver.InitializeRandomPopulation(evoManager.N);
 			evoManager.InitializePopulationQueue();
 			// Select 8 phenotypes and start a game with them
+		} else if (evoManager.SelectBest()) {
+			evoManager.ReadPopulation("population.csv");
+			List<PhenoType> best = Selection();
+			evoManager.Population = best;
+			evoManager.WritePopulation("prev-population.csv");
+			evoManager.ChildPopulation = GenerateOffspring();
+			evoManager.Population = evoManager.ChildPopulation;
+			evoManager.InitializePopulationQueue();
+			
+
+		} else if (evoManager.EvaluateOffspring()) {
+			evoManager.ReadPopulation("population.csv");
+			evoManager.WritePopulation("prev-population.csv");
+			evoManager.ChildPopulation = GenerateOffspring();
+			evoManager.Population = evoManager.ChildPopulation;
+			evoManager.InitializePopulationQueue();
 		} else {
-			evoManager.ReadPopulation();
+			evoManager.ReadPopulation("population.csv");
 			evoManager.ReadPopulationQueue();
 		}
 		PlayGame();
+	}
+
+	List<PhenoType> Selection() {
+		List<PhenoType> best = evoManager.Population;
+		evoManager.ReadPopulation("prev-population.csv");
+		foreach (PhenoType player in evoManager.Population) {
+			best.Add(player);
+		}
+		best.Sort();
+		best.Reverse();
+		for (int i = best.Count / 2; i < best.Count; i++ ) {
+			best.RemoveAt(i);
+		}
+
+		for (int i = 0; i < best.Count; i++) {
+			best[i].Id = i;
+		}
+
+		return best;	
+
 	}
 
 	void PlayGame () {
@@ -37,9 +73,36 @@ public class MultiGameManager : MonoBehaviour {
 		evolver.SetPlayers(players);
 	}
 
+	List<PhenoType> GenerateOffspring () {
+		List<PhenoType> offspring = new List<PhenoType>();
+		List<PhenoType> populationBuffer = evoManager.Population;
+		int id = 0;
+
+		for (int i = 0; i < evoManager.N / 2; i++) {
+
+			int ind1 = Random.Range(0, populationBuffer.Count);
+			PhenoType p1 = populationBuffer[ind1];
+			populationBuffer.RemoveAt(ind1);
+
+			int ind2 = Random.Range(0, populationBuffer.Count);
+			PhenoType p2 = populationBuffer[ind2];
+			populationBuffer.RemoveAt(ind2);
+
+			PhenoType[] children = evolver.HUXCrossover(p1, p2);
+			children[0].Id = id;
+			id++;
+			children[1].Id = id;
+			id++;
+			offspring.Add(children[0]);
+			offspring.Add(children[1]);
+		}
+
+		return offspring;
+
+	}
+
 	void UpdateFitness() {
 		PhenoType[] players = evolver.GetPlayers();
-		Debug.Log(players.Length);
 		foreach (PhenoType player in players) {
 			evoManager.UpdateFitness(player);
 		}
@@ -64,7 +127,7 @@ public class MultiGameManager : MonoBehaviour {
 		yield return new WaitForSeconds(0.5f);
 		UpdateFitness();
 		yield return new WaitForSeconds(0.5f);
-		evoManager.WritePopulation();
+		evoManager.WritePopulation("population.csv");
 		yield return new WaitForSeconds(0.5f);
 		evoManager.WritePopulationQueue();
 		yield return new WaitForSeconds(0.5f);
