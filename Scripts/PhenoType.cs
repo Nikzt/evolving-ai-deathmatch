@@ -8,7 +8,6 @@ using System.Collections.Specialized;
 public class PhenoType : IComparable
 {
     
-    protected GameObject m_Parent;
     protected string m_Name;
     protected float m_DamageDone;
     protected int m_Kills;
@@ -41,7 +40,6 @@ public class PhenoType : IComparable
 	}
 
     // Exposed properties
-    public GameObject Parent { get { return m_Parent; } set { m_Parent = value; } }
     public string Name { get { return m_Name; } set { m_Name = value; } }
     public int Kills { get { return m_Kills; } set { m_Kills = value; } }
     public int Deaths { get { return m_Deaths; } set { m_Deaths = value; } }
@@ -53,6 +51,7 @@ public class PhenoType : IComparable
     public float Fitness {get {return m_Fitness;} set {m_Fitness = value;}}
     public int Id {get {return m_Id;} set {m_Id = value;}}
 
+    // Allow phenotypes to be compared by their fitness
     public int CompareTo(object obj) {
         if (obj == null) {
             return 1;
@@ -65,10 +64,12 @@ public class PhenoType : IComparable
         }
     }
 
+    // Calculate fitness score from performance in game
 	public void UpdateFitness() {
 		m_Fitness = this.Kills - (0.2f * this.Deaths) + (0.01f * this.DamageDone);
 	}
 
+    // Get phenotype's parameter by name
 	public float GetParameter(string paramName) {
         float param = 0f;
         switch (paramName) {

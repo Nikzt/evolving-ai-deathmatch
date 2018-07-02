@@ -134,8 +134,6 @@ public class MultiGameManager : MonoBehaviour {
 		evoManager.ReadPopulation("population.csv");
 		UpdateFitness();
 		evoManager.WritePopulation("population.csv");
-//        Scene currentScene = SceneManager.GetActiveScene();
-//        SceneManager.LoadScene(currentScene.name);
 		#if UNITY_EDITOR
         	UnityEditor.EditorApplication.isPlaying = false;
         #else

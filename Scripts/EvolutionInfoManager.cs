@@ -157,7 +157,7 @@ public class EvolutionInfoManager {
 	}
 
 	public bool EvaluateOffspring() {
-		return (m_CurrentGameNumber == 1 && m_CurrentIteration != 1);
+		return ((m_CurrentGameNumber == 1 && m_CurrentIteration != 1) || (m_CurrentGameNumber == 1 && m_CurrentIteration % 10 == 0));
 	}
 
 	public bool SelectBest() {
